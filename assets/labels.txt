@@ -1,0 +1,3 @@
+0 chihuahua
+1 beagle
+2 irish_wolf
