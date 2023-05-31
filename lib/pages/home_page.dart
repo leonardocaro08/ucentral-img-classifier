@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:img_classifier/models/classification.dart';
+import 'package:img_classifier/pages/classification_historical.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:tflite/tflite.dart';
+import '../themes/app_theme.dart';
+
+import '../services/user_service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -46,6 +52,13 @@ class _HomePageState extends State<HomePage> {
       //Declare List _outputs in the class which will be used to show the classified classs name and confidence
       _outputs = output;
     });
+
+    final userService = Provider.of<UserService>(context, listen: false);
+    Classification classification = Classification(
+        date: DateTime.now(),
+        classification_label: _outputs![0]["label"],
+        user: userService.usuario_logueado.id!);
+    userService.crearClassification(classification);
   }
 
   Future pickImage() async {
@@ -65,7 +78,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Image Classification'),
-        backgroundColor: Colors.purple,
+        backgroundColor: AppTheme.primary,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+                Icons.history), // Puedes usar cualquier ícono que prefieras
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ClassificationsPage()),
+              );
+            },
+          )
+        ],
       ),
       body: _loading
           ? Container(
@@ -97,7 +122,7 @@ class _HomePageState extends State<HomePage> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: _optiondialogbox,
-        backgroundColor: Colors.purple,
+        backgroundColor: AppTheme.primary,
         child: Icon(Icons.image),
       ),
     );
@@ -109,7 +134,7 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: Colors.purple,
+            backgroundColor: AppTheme.primary,
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[

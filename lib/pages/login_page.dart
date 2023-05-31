@@ -26,6 +26,19 @@ class LoginBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        SizedBox(
+          height: 20, // Gives some spacing between the image and the card.
+        ),
+        ClipOval(
+          child: Image.asset(
+            'assets/icons/dog_classifier_icon.png',
+            width: 100, // You can adjust the size as needed.
+            height: 100, // You can adjust the size as needed.
+          ),
+        ),
+        SizedBox(
+          height: 20, // Gives some spacing between the image and the card.
+        ),
         CardContainer(
           // ignore: sort_child_properties_last
           child: Column(
@@ -35,7 +48,7 @@ class LoginBody extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               ChangeNotifierProvider(
                 create: (_) => LoginFormProvider(),
@@ -51,7 +64,7 @@ class LoginBody extends StatelessWidget {
           dy: 5,
         ),
         SizedBox(
-          height: 45,
+          height: 20,
         ),
         TextButton(
           style: ButtonStyle(
@@ -95,7 +108,7 @@ class _LoginForm extends StatelessWidget {
             },
           ),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
           TextFormField(
             autocorrect: false,
@@ -113,7 +126,7 @@ class _LoginForm extends StatelessWidget {
             },
           ),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
           MaterialButton(
             shape:
